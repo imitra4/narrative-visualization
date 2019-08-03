@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Detiled View</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -178,13 +178,34 @@ and is wrapped around the whole page content, except for the footer in this exam
                            .text(function(d){
                                return d.Lead_Studio + " : " + d[selection.value];
                            });
-              console.log(selector);
-              debugger;
+
                        d3.selectAll("g.y.axis")
                            .transition()
                            .call(yAxis);
         
                  });
+
+                 // draw legend
+          var legend = svg.selectAll(".legend")
+              .data(color.domain())
+            .enter().append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) { return "translate(180," + i * 20 + ")"; });
+        
+          // draw legend colored rectangles
+          legend.append("rect")
+              .attr("x", width - 18)
+              .attr("width", 18)
+              .attr("height", 18)
+              .style("fill", color);
+        
+          // draw legend text
+          legend.append("text")
+              .attr("x", width - 24)
+              .attr("y", 9)
+              .attr("dy", ".35em")
+              .style("text-anchor", "end")
+              .text(function(d) { return d;})
 
 
         
@@ -209,6 +230,11 @@ and is wrapped around the whole page content, except for the footer in this exam
                 <button type="submit" formaction="https://imitra4.github.io/narrative-visualization/index.html">HOME</button>
             </form>
       </p>
+      <p>Click Here  to go back to Previous Page
+        <form>
+            <button type="submit" formaction="https://imitra4.github.io/narrative-visualization/Genre.html">PREVIOUS</button>
+        </form>
+  </p>
      
    </div>
  </div>
