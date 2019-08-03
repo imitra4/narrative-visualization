@@ -34,10 +34,10 @@ and is wrapped around the whole page content, except for the footer in this exam
        </p>
 
        <style>
-        body {
-          font: 11px sans-serif;
+
+        .axis {
+          font: 10px sans-serif;
         }
-        
         .axis path,
         .axis line {
           fill: none;
@@ -80,8 +80,8 @@ and is wrapped around the whole page content, except for the footer in this exam
         <!-- Add a slider -->
         <div class="slider-wrapper" >
           <form oninput="x.value=parseInt(mySlider.value)">
-              2007<input type="range" name="mySlider" id=mySlider min="2007" max="2013" value="40">2013
-              <br>Year:- <output name="x" for="a" >40</output>
+              2007<input type="range" name="mySlider" id=mySlider min="2007" max="2013" value="2007">2013
+              <br>Year:- <output name="x" for="a" >2007</output>
           </form>
         </div>
         
@@ -127,7 +127,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         
             svg.append("text")
             .attr("x", 100)   
-            .attr("y", -200 )
+            .attr("y", -120 )
             .attr("dy", "3.5em" )
             .attr("text-anchor", "start")  
             .style("font-size", "28px")  
@@ -194,7 +194,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                      tooltip.transition()
                          .duration(200)
                          .style("opacity", .9);
-                     tooltip.html(d["Name"] + "<br/> (" + xValue(d) 
+                     tooltip.html(d["Lead_Studio"] + "<br/> (" + xValue(d) 
                          + ", " + yValue(d) + "(€))")
                          .style("left", (d3.event.pageX + 5) + "px")
                          .style("top", (d3.event.pageY - 28) + "px");

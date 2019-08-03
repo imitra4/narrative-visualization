@@ -62,6 +62,10 @@ and is wrapped around the whole page content, except for the footer in this exam
         var margin = {top: 100, right: 180, bottom: 80, left: 180},
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
+
+                // setup fill color
+        var cValue = function(d) { return d.Lead_Studio;},
+            color = d3.scale.category10();
         
         var svg = d3.select("svg")
             .attr("width", width + margin.left + margin.right)
@@ -88,6 +92,8 @@ and is wrapped around the whole page content, except for the footer in this exam
                     return ((d != "Year") & (d != "Lead_Studio"));
                 });
             var selection = elements[0];
+
+            
         
             var y = d3.scale.linear()
                     .domain([0, d3.max(data, function(d){
@@ -166,17 +172,21 @@ and is wrapped around the whole page content, except for the footer in this exam
                         .attr("y", function(d){
                             return y(+d[selection.value]);
                         })
+                        .style("fill", function(d) { return color(cValue(d));}) 
                            .ease("linear")
                            .select("title")
                            .text(function(d){
                                return d.Lead_Studio + " : " + d[selection.value];
                            });
-              
+              console.log(selector);
+              debugger;
                        d3.selectAll("g.y.axis")
                            .transition()
                            .call(yAxis);
         
                  });
+
+
         
             selector.selectAll("option")
               .data(elements)
