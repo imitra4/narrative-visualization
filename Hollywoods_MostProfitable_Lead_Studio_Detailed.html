@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <style>
-body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+    body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
 <body class="w3-light-grey">
 
@@ -144,6 +144,12 @@ and is wrapped around the whole page content, except for the footer in this exam
                 })
                 .attr("y", function(d){
                     return y(+d[selection]);
+                })
+                .style("fill", function(d) { return color(cValue(d));}) 
+                    // .ease("linear")
+                    .select("title")
+                    .text(function(d){
+                        return d.Lead_Studio + " : " + d[selection.value];
                 })
                 .append("title")
                 .text(function(d){
