@@ -176,7 +176,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                         tooltip.transition()
                          .duration(200)
                          .style("opacity", .9);
-                         tooltip.html(d["Lead_Studio"] + "<br/> (" +"<br>value/selection: " + yValue(d) )
+                         tooltip.html(d["Lead_Studio"] + "<br/> (" +"<br>value/selection: " + yValue(d) + ")")
                          .style("left", (d3.event.pageX + 5) + "px")
                          .style("top", (d3.event.pageY - 28) + "px");
                  })
