@@ -29,7 +29,7 @@ and is wrapped around the whole page content, except for the footer in this exam
     <div class="w3-container">
       <p>Online reviews/Audience score  are known to significantly impact consumer decisions.
         The data shows that box office wins don’t always equal profits.
-        Lets to find out how much these scores impacted profitability or if  at all they did. Below is a scatter plot with Audience Score and Worlwide Gross(Critics) Score on the Y-axis and Average Profitability on the X-axis with all films plotted and filtered by studio.
+        Lets to find out how much these scores impacted profitability or if  at all they did. Below is a scatter plot with Audience Score and Worlwide Gross(Critics) Score on the X-axis and Average Profitability on the Y-axis with all films plotted and filtered by studio.
         and as we scroll the slide bar to select different year , we can observe the change over the year as well.
        </p>
        <p><p> <EM>Hints: User can mouse over the on each dots to see the additional information</EM> </p></p>
@@ -52,7 +52,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         .tooltip {
             position: absolute;         
             text-align: center;         
-            width: 80px;                    
+            width: 150px;                    
             height: 45px;                   
             padding: 2px;               
             font: 12px sans-serif;      
@@ -194,8 +194,8 @@ and is wrapped around the whole page content, except for the footer in this exam
                      tooltip.transition()
                          .duration(200)
                          .style("opacity", .9);
-                     tooltip.html(d["Lead_Studio"] + "<br/> (" + xValue(d) 
-                         + ", " + yValue(d) + "($))")
+                     tooltip.html(d["Lead_Studio"] + "<br/> (" +  ": <br>Worldwide_Gross($): "+ xValue(d) 
+                         + ", " + ": <br>Audience_score%: "+ yValue(d) )
                          .style("left", (d3.event.pageX + 5) + "px")
                          .style("top", (d3.event.pageY - 28) + "px");
                  })

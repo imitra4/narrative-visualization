@@ -29,12 +29,12 @@ and is wrapped around the whole page content, except for the footer in this exam
     <div class="w3-container">
       <p>When we think of the most profitable movies at the box office, we probably think of the Hollywood blockbusters 
         - films that grab headlines because of their huge budgets and equally huge profits.
-        However, when it comes down to it, 
+        However, when it comes down to profitibility, 
         these aren't the movies that bring in the most return on investment for their respective film studios.
         Top profitable studio's from year 2007-2012 were as below-</p>
-      <li>Summit </li>  
+        <li>Summit </li>  
         <li> Sony </li>
-         <li>Disney </li>
+        <li>Disney </li><br>
          Most of the time, movies with smaller 
          budgets provide studios with the most bang for their buck, if the film reaches a profitable state.
          As we can observe here Independently produced movies were also very profitable and comparable with top 
@@ -54,7 +54,7 @@ and is wrapped around the whole page content, except for the footer in this exam
           div.tooltip {	
             position: absolute;			
             text-align: center;			
-            width: 80px;					
+            width: 150px;					
             height: 45px;					
             padding: 2px;				
             font: 12px sans-serif;		
@@ -138,7 +138,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         });
              
             
-            div.html(d.data.Call_Type + ": <br>"+d.data.value  )	
+            div.html(d.data.Call_Type + ": <br>Profitibility%: "+d.data.value  )	
               .style("left", (d3.event.pageX) + "px")		
               .style("top", (d3.event.pageY - 28) + "px");	
           })					
