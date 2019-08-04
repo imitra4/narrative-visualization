@@ -78,7 +78,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 
                 // setup fill color
         var cValue = function(d) { return d.Lead_Studio;},
-            color = d3.scale.category10();
+            color = d3.scale.category20();
         
         var svg = d3.select("svg")
             .attr("width", width + margin.left + margin.right)
@@ -200,8 +200,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                            .ease("linear")
                            .select("title")
                            .text(function(d){
-                               return d.Lead_Studio + " : " + d[selection.value];
-                           })
+                               return d.Lead_Studio + " : " + d[selection.value];})
                            .on("mouseover", function(d) {
                      tooltip.transition()
                          .duration(200)
