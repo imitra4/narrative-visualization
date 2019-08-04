@@ -32,6 +32,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         It can be clearly observed that most profitable studio may not great in getting audience or Critics attention.
         On the other hand few lead studio has grown over the year.
        </p>
+       <p><p> <EM>Hints: User can mouse over the on each bar to see the additional information</EM> </p></p>
 
        <style>
 
@@ -50,6 +51,18 @@ and is wrapped around the whole page content, except for the footer in this exam
           fill: none;
           stroke: #000;
           shape-rendering: crispEdges;
+        }
+        .tooltip {
+            position: absolute;         
+            text-align: center;         
+            width: 60px;                    
+            height: 45px;                   
+            padding: 2px;               
+            font: 12px sans-serif;      
+            background: lightsteelblue; 
+            border: 0px;        
+            border-radius: 8px;         
+            pointer-events: none;
         }
         </style>
         </head>
@@ -72,6 +85,11 @@ and is wrapped around the whole page content, except for the footer in this exam
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // add the tooltip area to the webpage
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
         
             svg.append("text")
             .attr("x", 100)   
@@ -135,7 +153,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                 .enter()
                 .append("rect")
                 .attr("class","rectangle")
-                .attr("width", width/data.length)
+                .attr("width", 35)
                 .attr("height", function(d){
                     return height - y(+d[selection]);
                 })
@@ -183,7 +201,21 @@ and is wrapped around the whole page content, except for the footer in this exam
                            .select("title")
                            .text(function(d){
                                return d.Lead_Studio + " : " + d[selection.value];
-                           });
+                           })
+                           .on("mouseover", function(d) {
+                     tooltip.transition()
+                         .duration(200)
+                         .style("opacity", .9);
+                     tooltip.html(d["Lead_Studio"] + "<br/> (" + xValue(d) 
+                         + ", " + yValue(d) + "($))")
+                         .style("left", (d3.event.pageX + 5) + "px")
+                         .style("top", (d3.event.pageY - 28) + "px");
+                 })
+                 .on("mouseout", function(d) {
+                     tooltip.transition()
+                         .duration(500)
+                         .style("opacity", 0);
+                 });
 
                        d3.selectAll("g.y.axis")
                            .transition()
