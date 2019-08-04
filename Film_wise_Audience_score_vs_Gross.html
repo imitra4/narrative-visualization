@@ -53,7 +53,7 @@ and is wrapped around the whole page content, except for the footer in this exam
             position: absolute;         
             text-align: center;         
             width: 200px;                    
-            height: 55px;                   
+            height: 60px;                   
             padding: 2px;               
             font: 12px sans-serif;      
             background: lightsteelblue; 
@@ -194,7 +194,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                      tooltip.transition()
                          .duration(200)
                          .style("opacity", .9);
-                     tooltip.html(d["Lead_Studio"] + "<br/> (" +  "<br>Worldwide_Gross($): "+ xValue(d) 
+                     tooltip.html(d["Lead_Studio"] + "<br/> (" +  "Worldwide_Gross($): "+ xValue(d) 
                          + ", " + "<br>Audience_score%: "+ yValue(d) + ")" )
                          .style("left", (d3.event.pageX + 5) + "px")
                          .style("top", (d3.event.pageY - 28) + "px");
