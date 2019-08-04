@@ -18,9 +18,9 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Grid -->
 <div class="w3-row">
 
-<!-- Blog entries -->
+<!--  entries -->
 <div class="w3-col 50 s12">
-  <!-- Blog entry -->
+  <!--  entry -->
   <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
       <h3><b>Do ratings and reviews impact profitability?</b></h3>
@@ -90,12 +90,6 @@ and is wrapped around the whole page content, except for the footer in this exam
             width = 1060 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
         
-        /* 
-         * value accessor - returns the value to encode for a given data object.
-         * scale - maps value to a visual display encoding, such as a pixel position.
-         * map function - maps from data value to display value
-         * axis - sets up axis
-         */ 
         
         // setup x 
         var xValue = function(d) { return d.Worldwide_Gross;}, // data -> value
@@ -145,7 +139,6 @@ and is wrapped around the whole page content, except for the footer in this exam
             debugger;
           });
           //debugger
-          // don't want dots overlapping axis, so add in buffer to data domain
           xScale.domain([d3.min(data, xValue)-20, d3.max(data, xValue)+1]);
           yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
         
@@ -174,13 +167,10 @@ and is wrapped around the whole page content, except for the footer in this exam
               .text("Audience_score_percentage");
         
           // draw dots
-         // A function that update the chart when slider is moved?
+         // A function that update the chart when slider is moved
          function updateChart(selectedValue) {
              // new data
              newData = data.filter(function(d){ return d.Year >= selectedValue});
-             // console.log(selectedValue)
-             // console.log(data)
-             // console.log(newData)
              // update the chart
              var newPlot = svg.selectAll(".dot").data(newData);
              newPlot
