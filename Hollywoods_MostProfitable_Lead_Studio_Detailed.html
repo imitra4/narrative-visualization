@@ -55,7 +55,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         .tooltip {
             position: absolute;         
             text-align: center;         
-            width: 60px;                    
+            width: 120px;                    
             height: 45px;                   
             padding: 2px;               
             font: 12px sans-serif;      
@@ -118,10 +118,18 @@ and is wrapped around the whole page content, except for the footer in this exam
                         return +d[selection];
                     })])
                     .range([height, 0]);
-        
+
+            var yValue = function(d){debugger; 
+            if (selection == elements[0]) 
+                return +d[selection]
+            else
+                return +d[selection.value]; 
+            }
+           
             var x = d3.scale.ordinal()
                     .domain(data.map(function(d){ return d.Lead_Studio;}))
-                    .rangeBands([0, width]);
+                    .rangeBands([-1, width]);
+            var xValue = function(d){ return d.Lead_Studio;}
         
         
             var xAxis = d3.svg.axis()
@@ -164,6 +172,19 @@ and is wrapped around the whole page content, except for the footer in this exam
                     return y(+d[selection]);
                 })
                 .style("fill", function(d) { return color(cValue(d));}) 
+                .on("mouseover", function(d) {
+                        tooltip.transition()
+                         .duration(200)
+                         .style("opacity", .9);
+                         tooltip.html(d["Lead_Studio"] + "<br/> (" + yValue(d) + "($))")
+                         .style("left", (d3.event.pageX + 5) + "px")
+                         .style("top", (d3.event.pageY - 28) + "px");
+                 })
+                 .on("mouseout", function(d) {
+                     tooltip.transition()
+                         .duration(500)
+                         .style("opacity", 0);
+                 })
                     // .ease("linear")
                     .select("title")
                     .text(function(d){
@@ -196,25 +217,12 @@ and is wrapped around the whole page content, except for the footer in this exam
                         .attr("y", function(d){
                             return y(+d[selection.value]);
                         })
-                        .style("fill", function(d) { return color(cValue(d));}) 
+                        .style("fill", function(d) { return color(cValue(d));})
                            .ease("linear")
                            .select("title")
                            .text(function(d){
                                return d.Lead_Studio + " : " + d[selection.value];})
-                           .on("mouseover", function(d) {
-                     tooltip.transition()
-                         .duration(200)
-                         .style("opacity", .9);
-                     tooltip.html(d["Lead_Studio"] + "<br/> (" + xValue(d) 
-                         + ", " + yValue(d) + "($))")
-                         .style("left", (d3.event.pageX + 5) + "px")
-                         .style("top", (d3.event.pageY - 28) + "px");
-                 })
-                 .on("mouseout", function(d) {
-                     tooltip.transition()
-                         .duration(500)
-                         .style("opacity", 0);
-                 });
+                        ;
 
                        d3.selectAll("g.y.axis")
                            .transition()
