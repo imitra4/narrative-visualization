@@ -175,13 +175,11 @@ and is wrapped around the whole page content, except for the footer in this exam
         
           // draw dots
          // A function that update the chart when slider is moved?
-         function updateChart(selectedValue) {
+         function updateGraph(val) {
              // new data
-             newData = data.filter(function(d){ return d.Year >= selectedValue});
-             // console.log(selectedValue)
-             // console.log(data)
-             // console.log(newData)
-             // update the chart
+             newData = data.filter(function(d){ return d.Year >= val});
+         
+             // update the graph
              svg.selectAll(".dot").remove();
              var newPlot = svg.selectAll(".dot").data(newData);
              newPlot
@@ -229,24 +227,18 @@ and is wrapped around the whole page content, except for the footer in this exam
               .text(function(d) { return d;});
 
 
-            //  newPlot
-            //      .transition()
-            //      .duration(1000)
-            //      .attr("cx", xMap)
-            //      .attr("cy", yMap);
-            //  newPlot.exit().remove();
+
              
          };
-         //default call with 0
-         updateChart(0);
+         updateGraph(0);
          
         
 
         
           // Listen to the slider?
           d3.select("#mySlider").on("change", function(d){
-                            selectedValue = this.value
-                            updateChart(selectedValue)
+                            val = this.value
+                            updateGraph(val)
                         })    
         });
         
