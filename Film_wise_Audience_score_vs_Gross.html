@@ -18,9 +18,9 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Grid -->
 <div class="w3-row">
 
-<!--  entries -->
+<!-- Blog entries -->
 <div class="w3-col 50 s12">
-  <!--  entry -->
+  <!-- Blog entry -->
   <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
       <h3><b>Do ratings and reviews impact profitability?</b></h3>
@@ -90,11 +90,17 @@ and is wrapped around the whole page content, except for the footer in this exam
             width = 1060 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
         
+        /* 
+         * value accessor - returns the value to encode for a given data object.
+         * scale - maps value to a visual display encoding, such as a pixel position.
+         * map function - maps from data value to display value
+         * axis - sets up axis
+         */ 
         
         // setup x 
         var xValue = function(d) { return d.Worldwide_Gross;}, // data -> value
             xScale = d3.scale.linear().range([0, width]), // value -> display
-            xMap = function(d) {  return xScale(xValue(d));}, // data -> display
+            xMap = function(d) { debugger; return xScale(xValue(d));}, // data -> display
             xAxis = d3.svg.axis().scale(xScale).orient("bottom");
         
         // setup y
@@ -105,7 +111,7 @@ and is wrapped around the whole page content, except for the footer in this exam
         
         // setup fill color
         var cValue = function(d) { return d.Lead_Studio;},
-            color = d3.scale.category10();
+            color = d3.scale.category20();
         
         // add the graph canvas to the body of the webpage
         var svg = d3.select("svg")
@@ -135,10 +141,11 @@ and is wrapped around the whole page content, except for the footer in this exam
           data.forEach(function(d) {
             d.Audience_score_percentage = +d.Audience_score_percentage;
             d.Worldwide_Gross = +d.Worldwide_Gross;
-            console.log(d);
+            //console.log(d);
             debugger;
           });
           //debugger
+          // don't want dots overlapping axis, so add in buffer to data domain
           xScale.domain([d3.min(data, xValue)-20, d3.max(data, xValue)+1]);
           yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
         
@@ -167,11 +174,15 @@ and is wrapped around the whole page content, except for the footer in this exam
               .text("Audience_score_percentage");
         
           // draw dots
-         // A function that update the chart when slider is moved
+         // A function that update the chart when slider is moved?
          function updateChart(selectedValue) {
              // new data
              newData = data.filter(function(d){ return d.Year >= selectedValue});
+             // console.log(selectedValue)
+             // console.log(data)
+             // console.log(newData)
              // update the chart
+             svg.selectAll(".dot").remove();
              var newPlot = svg.selectAll(".dot").data(newData);
              newPlot
                  .enter().append("circle")
@@ -185,7 +196,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                          .duration(200)
                          .style("opacity", .9);
                      tooltip.html(d["Film"] + "<br/> (" +  "Worldwide_Gross($): "+ xValue(d) 
-                         + ", " + "<br>Audience_score%: "+ yValue(d) + ")" )
+                         + ", " + "<br>Audience_score%: "+ yValue(d) + "<br>" +d["Lead_Studio"]+")")
                          .style("left", (d3.event.pageX + 5) + "px")
                          .style("top", (d3.event.pageY - 28) + "px");
                  })
@@ -194,18 +205,8 @@ and is wrapped around the whole page content, except for the footer in this exam
                          .duration(500)
                          .style("opacity", 0);
                  });
-             newPlot
-                 .transition()
-                 .duration(1000)
-                 .attr("cx", xMap)
-                 .attr("cy", yMap);
-             newPlot.exit().remove();
-         };
-         //default call with 0
-         updateChart(0);
-         
-        
           // draw legend
+          svg.selectAll(".legend").remove();
           var legend = svg.selectAll(".legend")
               .data(color.domain())
             .enter().append("g")
@@ -217,7 +218,7 @@ and is wrapped around the whole page content, except for the footer in this exam
               .attr("x", width - 18)
               .attr("width", 18)
               .attr("height", 18)
-              .style("fill", color);
+              .style("fill", function(d,i) { return color(d);});
         
           // draw legend text
           legend.append("text")
@@ -225,7 +226,22 @@ and is wrapped around the whole page content, except for the footer in this exam
               .attr("y", 9)
               .attr("dy", ".35em")
               .style("text-anchor", "end")
-              .text(function(d) { return d;})
+              .text(function(d) { return d;});
+
+
+            //  newPlot
+            //      .transition()
+            //      .duration(1000)
+            //      .attr("cx", xMap)
+            //      .attr("cy", yMap);
+            //  newPlot.exit().remove();
+             
+         };
+         //default call with 0
+         updateChart(0);
+         
+        
+
         
           // Listen to the slider?
           d3.select("#mySlider").on("change", function(d){
